@@ -17,21 +17,21 @@ const pickPalette = async () => {
   document.getElementById("start-btn").disabled = false;
 }
 
-const getLength = () => {
+const getLength = (dim) => {
   const lim1 = 0.995;
   const lim2 = 0.9;
   const chance = random();
 
   if (chance >= lim1) {
-    return ht;
+    return wd;
   }
 
   if (chance > lim2 && chance < lim1) {
     const n = round(random(2, 6));
-    return n * h;
+    return n * dim;
   }
 
-  return h;
+  return dim;
 };
 
 const pickRandom = (arr) => {
