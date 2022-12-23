@@ -1,0 +1,35 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #a5a5a5;
+}
+
+main {
+  padding: 0.5rem;
+}
+
+canvas {
+  display: block;
+}
+
+.swatch-cont {
+  display: flex;
+}
+
+.swatch {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: darkgray;
+  border: 1px solid #444;
+}
+
+.swatch:not(first-child) {
+  margin-left: 0.125rem;
+}
+
+.ui-cont {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  width: 960px;
+}
