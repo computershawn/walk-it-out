@@ -12,6 +12,7 @@ let going = false;
 let perRow;
 const maxPerRow = 8;
 let grafx;
+let backgroundSwatch = -1;
 
 function setup() {
   createCanvas(wd, ht);
@@ -38,10 +39,27 @@ function setup() {
     const filename = `walk-it-out-${timestamp}`;
     saveCanvas(filename, "png");
   });
+  
+  const swatchDivs = document.querySelectorAll('.swatch');
+  swatchDivs.forEach((s, i) => {
+    s.addEventListener('click', () => {
+      if (palette && palette.length) {
+        if (backgroundSwatch === i) {
+          backgroundSwatch = -1;
+        } else {
+          backgroundSwatch = i;
+        }
+      }
+    });
+  });
 }
 
 function draw() {
-  background(255);
+  if (backgroundSwatch !== -1) {
+    background(palette[backgroundSwatch]);
+  } else {
+    background(255);
+  }
 
   updateGraphics();
   renderGraphics();
