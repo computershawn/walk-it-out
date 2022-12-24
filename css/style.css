@@ -10,6 +10,7 @@ main {
 
 canvas {
   display: block;
+  outline: 1px solid #444;
 }
 
 .swatch-cont {
@@ -22,6 +23,7 @@ canvas {
   background-color: darkgray;
   border: 1px solid #444;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .swatch:not(first-child) {

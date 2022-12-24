@@ -49,6 +49,10 @@ function setup() {
         } else {
           backgroundSwatch = i;
         }
+        swatchBorders(i);
+        j = 0;
+        count = 0;
+        items.length = 0;
       }
     });
   });
@@ -57,8 +61,10 @@ function setup() {
 function draw() {
   if (backgroundSwatch !== -1) {
     background(palette[backgroundSwatch]);
+    grafx.background(palette[backgroundSwatch]);
   } else {
     background(255);
+    grafx.background(255);
   }
 
   updateGraphics();
@@ -74,14 +80,13 @@ const updateGraphics = () => {
       x: j * w,
       y: noi,
       len: getLength(w),
-      colorIndex: randomIndex(palette),
+      colorIndex: randomIndex(palette, backgroundSwatch),
       fillAlpha: random(207, 255),
       lineAlpha: random(127, 207),
       isDiagonal: random() > 0.96,
       isWhite: random() > 0.75,
       isRect: random() > 0.996,
       rectHeight: w * (1 + round(random(1, 3))),
-      // colIndex: j,
     };
 
     items.push(item);
@@ -131,3 +136,14 @@ const renderGraphics = () => {
 
   image(grafx, mar, mar, wd - 2 * mar, ht - 2 * mar);
 };
+
+const swatchBorders = () => {
+  const swatchDivs = document.querySelectorAll('.swatch');
+  swatchDivs.forEach((s, i) => {
+    if (backgroundSwatch === i) {
+      s.style.borderRadius = '0.125rem';
+    } else {
+      s.style.borderRadius = '50%';
+    }    
+  });
+}

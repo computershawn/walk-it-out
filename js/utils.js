@@ -40,6 +40,20 @@ const pickRandom = (arr) => {
   return arr[index];
 };
 
-const randomIndex = (arr) => {
-  return floor(random(arr.length));
-};
+const randomIndex = (arr, skip = -1) => {
+  let index;
+  if (skip === -1) {
+    index = floor(random(arr.length));
+  } else {
+    const tempArray = [];
+    arr.forEach((_, i) => {
+      if (i !== skip) {
+        tempArray.push(i);
+      }
+    });
+    const altIndex = floor(random(tempArray.length));
+    index = tempArray[altIndex];
+  }
+
+  return index;
+}
