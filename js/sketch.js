@@ -84,6 +84,7 @@ const updateGraphics = () => {
       fillAlpha: random(207, 255),
       lineAlpha: random(127, 207),
       isDiagonal: random() > 0.96,
+      direx: random() > 0.5 ? 1 : -1,
       isWhite: random() > 0.75,
       isRect: random() > 0.996,
       rectHeight: w * (1 + round(random(1, 3))),
@@ -117,8 +118,8 @@ const renderGraphics = () => {
       grafx.stroke(red(co), green(co), blue(co), i.lineAlpha);
       const x0 = i.x;
       const y0 = i.y;
-      const x1 = i.x + i.len;
-      const y1 = i.y - i.len;
+      const x1 = i.x + i.len * i.direx;
+      const y1 = i.y - i.len * i.direx;
       if (i.isWhite) {
         grafx.stroke(255);
       }
