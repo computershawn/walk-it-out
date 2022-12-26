@@ -4,10 +4,6 @@ html, body {
   background-color: #a5a5a5;
 }
 
-main {
-  padding: 0.5rem;
-}
-
 canvas {
   display: block;
   outline: 1px solid #444;
@@ -15,11 +11,17 @@ canvas {
 
 .swatch-cont {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.swatches {
+  display: flex;
 }
 
 .swatch {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 3rem;
+  height: 3rem;
   background-color: darkgray;
   border: 1px solid #444;
   cursor: pointer;
@@ -27,12 +29,40 @@ canvas {
 }
 
 .swatch:not(first-child) {
-  margin-left: 0.125rem;
+  margin-left: 1rem;
 }
 
 .ui-cont {
   margin: 0.5rem 0;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: 960px;
+  width: 624px;
+  /* This width is arbitrary for iphone 13 Mini; There
+  must be a better way to get the UI elements span
+  100% of the device width */
 }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  height: 4rem;
+  font-size: 2rem;
+}
+
+.buttons button {
+  width: calc(50% - 0.5rem);
+}
+
+.swatch-cont button {
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+

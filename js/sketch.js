@@ -9,6 +9,7 @@ let count = 0;
 const items = [];
 let palette;
 let going = false;
+let complete = true;
 let perRow;
 const maxPerRow = 8;
 let grafx;
@@ -19,25 +20,34 @@ function setup() {
   grafx = createGraphics(wd, ht);
   perRow = round(random(1, maxPerRow)) * 40;
 
-  const pickBtn = document.querySelector("#pick-btn");
-  pickBtn.addEventListener("click", pickPalette);
+  const pickBtn = document.querySelector('#pick-btn');
+  pickBtn.addEventListener('click', pickPalette);
 
-  const startBtn = document.querySelector("#start-btn");
-  startBtn.addEventListener("click", (e) => {
-    if (going) {
-      going = false;
-      e.target.innerText = "start";
-    } else {
+  const startBtn = document.querySelector('#start-btn');
+  startBtn.addEventListener('click', (e) => {
+    if (complete) {
+      complete = false;
       going = true;
-      e.target.innerText = "pause";
+      j = 0;
+      count = 0;
+      items.length = 0;
+      e.target.innerText = 'pause';
+    } else {
+      if (going) {
+        going = false;
+        e.target.innerText = 'resume';
+      } else {
+        going = true;
+        e.target.innerText = 'pause';
+      }
     }
   });
 
-  const downloadBtn = document.querySelector("#download-btn");
-  downloadBtn.addEventListener("click", () => {
+  const downloadBtn = document.querySelector('#download-btn');
+  downloadBtn.addEventListener('click', () => {
     const timestamp = round(Date.now() / 1000);
     const filename = `walk-it-out-${timestamp}`;
-    saveCanvas(filename, "png");
+    saveCanvas(filename, 'png');
   });
   
   const swatchDivs = document.querySelectorAll('.swatch');
@@ -56,6 +66,8 @@ function setup() {
       }
     });
   });
+
+  pickPalette();
 }
 
 function draw() {
@@ -102,8 +114,10 @@ const updateGraphics = () => {
 
     if (j === numCols) {
       going = false;
-      const startBtn = document.querySelector("#start-btn");
-      startBtn.innerText = "start";
+      complete = true;
+      const startBtn = document.querySelector('#start-btn');
+      startBtn.innerText = 'start';
+      console.log('complete!');
     }
   }
 };
