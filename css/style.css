@@ -66,3 +66,8 @@ button {
   margin-right: 1rem;
 }
 
+#canvas-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow:scroll
+}

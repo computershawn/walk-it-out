@@ -16,7 +16,8 @@ let grafx;
 let backgroundSwatch = -1;
 
 function setup() {
-  createCanvas(wd, ht);
+  const canv = createCanvas(wd, ht);
+  canv.parent('canvas-wrapper');
   grafx = createGraphics(wd, ht);
   perRow = round(random(1, maxPerRow)) * 40;
 
