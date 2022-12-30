@@ -4,6 +4,11 @@ html, body {
   background-color: #a5a5a5;
 }
 
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
 canvas {
   display: block;
   outline: 1px solid #444;
@@ -28,8 +33,8 @@ canvas {
   border-radius: 50%;
 }
 
-.swatch:not(first-child) {
-  margin-left: 1rem;
+.swatch:not(:first-child) {
+  margin-left: 4px;
 }
 
 .ui-cont {
@@ -37,10 +42,6 @@ canvas {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 624px;
-  /* This width is arbitrary for iphone 13 Mini; There
-  must be a better way to get the UI elements span
-  100% of the device width */
 }
 
 .buttons {
@@ -63,11 +64,51 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 1rem;
 }
 
 #canvas-wrapper {
   width: 100vw;
-  height: 100vh;
-  overflow:scroll
+  overflow-x: scroll;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (min-width: 960px) {
+  main {
+    padding: 0.25rem;
+  }
+
+  .ui-cont {
+    width: 960px;
+  }
+
+  .buttons {
+    display: unset;
+  }
+
+  button {
+    height: unset;
+    font-size: unset;
+  }
+
+  .buttons button {
+    width: 6rem;
+  }
+
+  .swatch-cont {
+    justify-content: unset;
+  }
+
+  .swatch-cont button {
+    width: 6rem;
+    margin-right: 0.25rem;
+  }
+
+  .swatch {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: darkgray;
+    border: 1px solid #444;
+    cursor: pointer;
+    border-radius: 50%;
+  }
 }
