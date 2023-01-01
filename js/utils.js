@@ -57,3 +57,7 @@ const randomIndex = (arr, skip = -1) => {
 
   return index;
 }
+
+function easeInQuad(x) {
+  return x * x;
+}

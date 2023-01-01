@@ -68,7 +68,7 @@ button {
 
 #canvas-wrapper {
   width: 100vw;
-  overflow-x: scroll;
+  overflow: auto;
   margin-bottom: 1rem;
 }
 

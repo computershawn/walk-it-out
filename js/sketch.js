@@ -87,7 +87,8 @@ function draw() {
 const updateGraphics = () => {
   if (going) {
     yoff = yoff + 0.03;
-    let noi = noise(yoff) * ht;
+    // let noi = noise(yoff) * ht;
+    let noi = easeInQuad(noise(yoff)) * ht;
 
     const item = {
       x: j * w,
