@@ -68,17 +68,22 @@ button {
 
 #canvas-wrapper {
   width: 100vw;
-  overflow-x: scroll;
+  overflow: auto;
   margin-bottom: 1rem;
+}
+
+.save-icon {
+  display: none;
 }
 
 @media only screen and (min-width: 960px) {
   main {
-    padding: 0.25rem;
+    padding: 0.5rem;
   }
 
   .ui-cont {
     width: 960px;
+    flex-direction: unset;
   }
 
   .buttons {
@@ -99,7 +104,7 @@ button {
   }
 
   .swatch-cont button {
-    width: 6rem;
+    width: 4rem;
     margin-right: 0.25rem;
   }
 
@@ -110,5 +115,9 @@ button {
     border: 1px solid #444;
     cursor: pointer;
     border-radius: 50%;
+  }
+
+  .save-icon {
+    display: inline-block;
   }
 }

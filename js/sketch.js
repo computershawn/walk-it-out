@@ -7,6 +7,7 @@ const mar = 32;
 let j = 0;
 let count = 0;
 const items = [];
+let allColors;
 let palette;
 let going = false;
 let complete = true;
@@ -14,15 +15,18 @@ let perRow;
 const maxPerRow = 8;
 let grafx;
 let backgroundSwatch = -1;
+const rowFactor = 60;
 
 function setup() {
   const canv = createCanvas(wd, ht);
   canv.parent('canvas-wrapper');
   grafx = createGraphics(wd, ht);
-  perRow = round(random(1, maxPerRow)) * 40;
+  perRow = getPerRow();
 
   const pickBtn = document.querySelector('#pick-btn');
-  pickBtn.addEventListener('click', pickPalette);
+  pickBtn.addEventListener('click', () => {
+    palette = pickPalette(allColors);
+  });
 
   const startBtn = document.querySelector('#start-btn');
   startBtn.addEventListener('click', (e) => {
@@ -44,11 +48,18 @@ function setup() {
     }
   });
 
-  const downloadBtn = document.querySelector('#download-btn');
-  downloadBtn.addEventListener('click', () => {
+  const downloadPngBtn = document.querySelector('#download-png-btn');
+  downloadPngBtn.addEventListener('click', () => {
     const timestamp = round(Date.now() / 1000);
     const filename = `walk-it-out-${timestamp}`;
     saveCanvas(filename, 'png');
+  });
+
+  const downloadSvgBtn = document.querySelector('#download-svg-btn');
+  downloadSvgBtn.addEventListener('click', () => {
+    const timestamp = round(Date.now() / 1000);
+    const filename = `walk-it-out-${timestamp}.svg`;
+    createSvgFile(filename, {width: wd, height: ht}, items, palette);
   });
   
   const swatchDivs = document.querySelectorAll('.swatch');
@@ -68,7 +79,10 @@ function setup() {
     });
   });
 
-  pickPalette();
+  initPalette().then((dat) => {
+    allColors = dat;
+    palette = pickPalette(dat);
+  });
 }
 
 function draw() {
@@ -100,7 +114,8 @@ const updateGraphics = () => {
       direx: random() > 0.5 ? 1 : -1,
       isWhite: random() > 0.75,
       isRect: random() > 0.996,
-      rectHeight: w * (1 + round(random(1, 3))),
+      rectHeight: w * (1 + round(random(1, 6))),
+      rectWidth: w,
     };
 
     items.push(item);
@@ -110,7 +125,7 @@ const updateGraphics = () => {
     if (count > perRow) {
       j += 1;
       count = 0;
-      perRow = round(random(1, maxPerRow)) * 40;
+      perRow = getPerRow();
     }
 
     if (j === numCols) {
@@ -162,4 +177,8 @@ const swatchBorders = () => {
       s.style.borderRadius = '50%';
     }    
   });
+}
+
+const getPerRow = () => {
+  return round(random(1, maxPerRow)) * rowFactor;
 }

@@ -5,16 +5,22 @@ const getColors = async () => {
   return data;
 };
 
-const pickPalette = async () => {
-  const allColors = await getColors();
-  palette = pickRandom(allColors);
+const initPalette = async () => {
+  const allCo = await getColors();  
+  document.getElementById("start-btn").disabled = false;
+
+  return allCo;
+}
+
+const pickPalette = (allColorsArray) => {
+  const temp = pickRandom(allColorsArray);
   
   const swatchDivs = document.querySelectorAll('.swatch');
   swatchDivs.forEach((s, i) => {
-    s.style.backgroundColor = palette[i];
-  });
-  
-  document.getElementById("start-btn").disabled = false;
+    s.style.backgroundColor = temp[i];
+  });  
+
+  return temp;
 }
 
 const getLength = (dim) => {
@@ -56,4 +62,44 @@ const randomIndex = (arr, skip = -1) => {
   }
 
   return index;
+}
+
+function easeInQuad(x) {
+  return x * x;
+}
+
+function createSvgFile(filename, dims, geometryArray, colorsArray) {
+  let writer = createWriter(filename);
+  writer.write(`<svg viewBox="0 0 ${dims.height} ${dims.width}" width="${dims.width}" height="${dims.height}" xmlns="http://www.w3.org/2000/svg">`);
+  writer.write(`<g stroke-linecap="square">`);
+
+  geometryArray.forEach(i => {
+    let elem, x1, y1, co, op;
+    if (i.isDiagonal) {
+      x1 = i.x;
+      y1 = i.y;
+      const x2 = x1 + i.len * i.direx;
+      const y2 = y1 - i.len * i.direx;
+      co = i.isWhite ? '#ffffff' : colorsArray[i.colorIndex];
+      op = (i.lineAlpha / 255).toFixed(2);
+      elem = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${co}" stroke-opacity="${op}" />`;
+    } else if (i.isRect) {
+      x1 = i.x;
+      y1 = i.y;
+      co = colorsArray[i.colorIndex];
+      op = (i.fillAlpha / 255).toFixed(2);
+      elem = `<rect x="${x1}" y="${y1}" width="${i.rectWidth}" height="${i.rectHeight}" fill="${co}" fill-opacity="${op}" />`;
+    } else {
+      x1 = i.x;
+      y1 = i.y;
+      co = i.isWhite ? '#ffffff' : colorsArray[i.colorIndex];
+      op = (i.lineAlpha / 255).toFixed(2);
+      elem = `<line x1="${x1}" y1="${y1}" x2="${x1 + i.len}" y2="${y1}" stroke="${co}" stroke-opacity="${op}" />`;
+    }
+    writer.write(elem);
+  });
+
+  writer.write(`</g>`);
+  writer.write(`</svg>`);
+  writer.close();
 }
